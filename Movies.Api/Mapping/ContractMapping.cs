@@ -27,13 +27,14 @@ namespace Movies.Api.Mapping
             };
         }
 
-
         public static MovieResponse MapToResponse(this Movie movie)
         {
             return new MovieResponse
             {
                 Id = movie.Id,
                 Title = movie.Title,
+                UserRating = movie.UserRating,
+                Rating = movie.Rating,
                 YearOfRelease = movie.YearOfRelease,
                 Slug = movie.Slug,
                 Genres = movie.Genres
@@ -43,6 +44,16 @@ namespace Movies.Api.Mapping
         public static MoviesResponse MapToResponse(this IEnumerable<Movie> movies)
         {
             return new MoviesResponse { Items = movies.Select(MapToResponse) };
+        }
+
+        public static RatingResponse MapToResponse(this MovieRating rating)
+        {
+            return new RatingResponse { MovieId = rating.MovieId , Rating = rating.Rating};
+        }
+
+        public static RatingsResponse MapToResponse(this IEnumerable<MovieRating> ratings)
+        {
+            return new RatingsResponse { Items = ratings.Select(MapToResponse) };
         }
     }
 }
